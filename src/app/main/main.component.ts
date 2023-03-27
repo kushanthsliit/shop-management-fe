@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShopService } from '../service/shop.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';;
 
 @Component({
   selector: 'app-main',
@@ -11,7 +12,6 @@ export class MainComponent implements OnInit{
 
   allRecords : any;
   recordForm: FormGroup;
-  isRecordDeletd : boolean = false;
   summaryData : any;
 
   constructor(private shopService : ShopService, private fb: FormBuilder){
@@ -49,26 +49,46 @@ export class MainComponent implements OnInit{
   onSubmit(){
     console.log(this.recordForm.value);
     this.shopService.addRecord(this.recordForm.value).subscribe(data =>{
-      if(data.status == 200){
+      if(data.data != null){
         this.getAllRecords();
         this.recordForm.reset();
+        Swal.fire('Data Added Successfully Date of ',data.data.date, 'success');
+      }
+      else{
+        Swal.fire('Already a Record Found The same Date ',this.recordForm.controls['date'].value, 'error');
       }
     });
   }
 
   deleteRecord(record : any){
-    if(confirm("Are you sure to delete "+ record.date + " record ?")) {
-      this.shopService.deleteRecord(record.id).subscribe( data => {
-        if(data.status == 200){
-          this.getAllRecords();
-        }
-      });
-    }
 
-    if(this.isRecordDeletd == true){
-      console.log(this.isRecordDeletd)
-      this.getAllRecords();
-    }
+    Swal.fire({
+      title: 'Are you sure want to Delete '+ record.date + ' ?',
+      text: 'This process is irreversible.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, go ahead.',
+      cancelButtonText: 'No, let me think',
+    }).then((result) => {
+      if (result.value) {
+        this.shopService.deleteRecord(record.id).subscribe( data => {
+          if(data.status == 200){
+            this.getAllRecords();
+          }
+        });
+        Swal.fire('Removed!', 'Record removed successfully.', 'success');
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('Cancelled', 'Record still in our database', 'error');
+      }
+    });
+
+    // if(confirm("Are you sure to delete "+ record.date + " record ?")) {
+    //   this.shopService.deleteRecord(record.id).subscribe( data => {
+    //     if(data.status == 200){
+    //       this.getAllRecords();
+    //     }
+    //   });
+    // }
   }
 
 
@@ -79,6 +99,11 @@ export class MainComponent implements OnInit{
   totalExpenses : any;
   totalProfit : any;
   getSummary(){
+
+    if(this.startDate?.value > this.endDate?.value){
+      Swal.fire('Cancelled', 'Start Date Should Be Less Than End Date', 'error');
+    }
+
     this.shopService.getSummaryBetweenDates(this.startDate?.value, this.endDate?.value).subscribe( data => {
       this.summaryData = data.data;
       this.tobaccoProfit = this.summaryData.sumOfTobaccoSold - this.summaryData.sumOfTobaccoPurchased;
@@ -101,6 +126,7 @@ export class MainComponent implements OnInit{
 
   resetForm(){
     this.recordForm.reset();
+    this.getAllRecords();
   }
 
   get date() {
