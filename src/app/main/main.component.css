@@ -12,3 +12,8 @@ h5
     width: 1.5em;
     height: 1.5em;
 }
+
+.table-wrap {
+    height: 250px;
+    overflow-y: auto;
+  }

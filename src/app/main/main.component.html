@@ -106,62 +106,56 @@
         <div class="form-group">
           <label>Start Date</label>
           <input type="date" class="form-control form-control-sm" formControlName="startDate">
-          <!-- [(ngModel)] = "startDate" -->
-          <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
         </div>
-        <!-- {{startDate}} -->
         <div class="form-group">
           <label>End Date</label>
           <input type="date" class="form-control form-control-sm" formControlName="endDate">
-          <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
         </div>
-        <button type="button" class="btn btn-secondary btn-sm" style="margin-right: 5px;"
+        <button type="button" class="btn btn-info btn-sm" style="margin-right: 5px;" [disabled]="startDate?.value == null || endDate?.value == null"
         (click)="getSummary()">Summary</button>
 
-        <div class="container" style="background-color: aquamarine; margin-top: 20px;">
+        <div class="container" style="background-color: aquamarine; margin-top: 20px; border-radius: 10px;">
           <table class="table">
-            <!-- <thead>
-              <tr>
-                <th><small>Category</small></th>
-                <th><small>Total</small></th>
-              </tr>
-            </thead> -->
             <tbody>
               <tr>
                 <td><small>Oyster Sold : </small>
-                <small>{{this.summaryData == undefined ? null : this.summaryData.oysterSold}}</small></td>
+                <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfOysterSold}}</small></td>
+                <td><small>Shop : </small>
+                  <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfShop}}</small></td>
+              </tr>
+              <tr>
                 <td><small>Tobacco Sold : </small>
-                  <small>{{this.summaryData == undefined ? null : this.summaryData.tobaccoSold}}</small></td>
+                  <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfTobaccoSold}}</small></td>
+                <td><small>Tobacco Purchased : </small>
+                  <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfTobaccoPurchased}}</small></td>
               </tr>
               <tr>
                 <td><small>Tobacco Sold Qty : </small>
-                <small>{{this.summaryData == undefined ? null : this.summaryData.tobaccoSoldQuantity}}</small></td>
+                  <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfTobaccoSoldQty}}</small></td>
+                  <td><small>Tobacco Purchased Qty : </small>
+                    <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfTobaccoPurchasedQty}}</small></td>
+              </tr>
+              <tr>
                 <td><small>Phone Card Sold : </small>
-                  <small>{{this.summaryData == undefined ? null : this.summaryData.phoneCardsSold}}</small></td>
+                  <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfPhoneCardsSold}}</small></td>
+                  <td><small>Phone Card Purchased : </small>
+                    <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfPhoneCardsPurchased}}</small></td>
               </tr>
               <tr>
                 <td><small>Z Total : </small>
-                <small>{{this.summaryData == undefined ? null : this.summaryData.ztotal}}</small></td>
-                <td><small>Shop : </small>
-                  <small>{{this.summaryData == undefined ? null : this.summaryData.shop}}</small></td>
-              </tr>
-              <tr>
-                <td><small>Phone Card Purchased : </small>
-                <small>{{this.summaryData == undefined ? null : this.summaryData.phoneCardPurchased}}</small></td>
-                <td><small>Tobacco Purchased : </small>
-                  <small>{{this.summaryData == undefined ? null : this.summaryData.tobaccoPurchased}}</small></td>
-              </tr>
-              <tr>
-                <td><small>Tobacco Purchased Qty : </small>
-                <small>{{this.summaryData == undefined ? null : this.summaryData.tobaccoPurchasedQuantity}}</small></td>
+                  <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfZtotal}}</small></td>
                 <td><small>Wages : </small>
-                  <small>{{this.summaryData == undefined ? null : this.summaryData.wages}}</small></td>
+                  <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfWages}}</small></td>
               </tr>
               <tr>
+                <td><h6>Shop Sales : </h6>{{this.summaryData == undefined ? null : this.summaryData.sumOfShopSales}}</td>
                 <td><small>Expenses : </small>
-                <small>{{this.summaryData == undefined ? null : this.summaryData.expenses}}</small></td>
+                <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfExpenses}}</small></td>
+              </tr>
+              <tr>
+                <td></td>
                 <td><small>Commision : </small>
-                  <small>{{this.summaryData == undefined ? null : this.summaryData.commision}}</small></td>
+                  <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfCommision}}</small></td>
               </tr>
             </tbody>
           </table>
@@ -169,49 +163,89 @@
       </div>
     </div>
 </form>
+<div class="container">
+  <small>
+  <div class="row">
+    <div class="col-sm" style="background-color: darkcyan; border-radius: 10px; margin-top: 10px; color: white;">
+      <table class="table table-sm text-center">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Tobacco</th>
+            <th>Tobacco Qty</th>
+            <th>Phone Cards</th>
+            <th>Shop</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          </tr>
+          <tr>
+            <td>PROFIT</td>
+            <td>{{this.tobaccoProfit}}</td>
+            <td>{{this.tobaccoQtyProfit}}</td>
+            <td>{{this.phoneCardsProfit}}</td>
+            <td>{{this.shopProfit}}</td>
+          </tr>
+          <tr>
+            <td>TOTAL EXPENSES</td>
+            <td><h6>{{this.totalExpenses}}</h6></td>
+          </tr>
+          <tr>
+            <td>TOTAL PROFIT</td>
+            <td><h6>{{this.totalProfit}}</h6></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</small>
+</div>
 </div>
 
-<!-- {{this.recordForm.value | json}} -->
 
-<div class="container" style="margin-top: 20px;">
-  <table class="table table-striped table-sm text-center">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col" style="width: 75px;"><small>Date</small></th>
-        <th scope="col" style="width: 50px;"><small>Oyster</small></th>
-        <th scope="col"><small>Tobacco</small></th>
-        <th scope="col"><small>Tobacco Quantity</small></th>
-        <th scope="col"><small>Phone Cards</small></th>
-        <th scope="col"><small>Z Total</small></th>
-        <th scope="col"><small>Shop</small></th>
-        <th scope="col"><small>Phone Card Purchased</small></th>
-        <th scope="col"><small>Tobacco Purchased</small></th>
-        <th scope="col"><small>Tobacco Purchased Quantity</small></th>
-        <th scope="col"><small>Wages</small></th>
-        <th scope="col"><small>Expenses</small></th>
-        <th scope="col"><small>Commision</small></th>
-        <th scope="col"><small>Shop Sales</small></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let record of allRecords">
-        <td ><small>{{record.date}}</small></td>
-        <td><small>{{record.oysterSold}}</small></td>
-        <td><small>{{record.tobaccoSold}}</small></td>
-        <td><small>{{record.tobaccoSoldQuantity}}</small></td>
-        <td><small>{{record.phoneCardsSold}}</small></td>
-        <td><small>{{record.total}}</small></td>
-        <td><small>{{record.shop}}</small></td>
-        <td><small>{{record.phoneCardsPurchased}}</small></td>
-        <td><small>{{record.tobaccoPurchased}}</small></td>
-        <td><small>{{record.tobaccoPurchasedQuantity}}</small></td>
-        <td><small>{{record.wages}}</small></td>
-        <td><small>{{record.expenses}}</small></td>
-        <td><small>{{record.commision}}</small></td>
-        <td><small>{{record.shopSales}}</small></td>
-        <!-- <td><button class="btn btn-primary btn-sm">Edit</button></td> -->
-        <td><button class="btn btn-danger btn-sm" (click)="deleteRecord(record)">Delete</button></td>
-      </tr>
-    </tbody>
-  </table>
+<div class="table-wrap">
+  <div class="container-fluid table-responsive" style="margin-top: 20px;">
+    <table class="table table-striped table-sm text-center">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col" style="width: 80px;"><small>Date</small></th>
+          <th scope="col"><small>Oyster</small></th>
+          <th scope="col"><small>Tobacco</small></th>
+          <th scope="col"><small>Tobacco Quantity</small></th>
+          <th scope="col"><small>Phone Cards</small></th>
+          <th scope="col"><small>Z Total</small></th>
+          <th scope="col"><small>Shop</small></th>
+          <th scope="col"><small>Phone Card Purchased</small></th>
+          <th scope="col"><small>Tobacco Purchased</small></th>
+          <th scope="col"><small>Tobacco Purchased Quantity</small></th>
+          <th scope="col"><small>Wages</small></th>
+          <th scope="col"><small>Expenses</small></th>
+          <th scope="col"><small>Commision</small></th>
+          <th scope="col"><small>Shop Sales</small></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of allRecords">
+          <td ><small>{{record.date}}</small></td>
+          <td><small>{{record.oysterSold}}</small></td>
+          <td><small>{{record.tobaccoSold}}</small></td>
+          <td><small>{{record.tobaccoSoldQuantity}}</small></td>
+          <td><small>{{record.phoneCardsSold}}</small></td>
+          <td><small>{{record.total}}</small></td>
+          <td><small>{{record.shop}}</small></td>
+          <td><small>{{record.phoneCardsPurchased}}</small></td>
+          <td><small>{{record.tobaccoPurchased}}</small></td>
+          <td><small>{{record.tobaccoPurchasedQuantity}}</small></td>
+          <td><small>{{record.wages}}</small></td>
+          <td><small>{{record.expenses}}</small></td>
+          <td><small>{{record.commision}}</small></td>
+          <td><small>{{record.shopSales}}</small></td>
+          <td><button class="btn btn-danger btn-sm" (click)="deleteRecord(record)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
+

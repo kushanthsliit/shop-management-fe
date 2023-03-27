@@ -29,4 +29,9 @@ export class ShopService {
   getSummaryBetweenDates(startDate: any, endDate: any){
     return this.http.get<any>(this.baseUrl + 'summary/startDate/' + startDate + '/endDate/' + endDate);
   }
+
+  getRecordsByDateRange(startDate: any, endDate: any){
+    return this.http.get<any>(this.baseUrl + 'getRecordsByDateRange/startDate/' + startDate + '/endDate/' + endDate);
+  }
+
 }

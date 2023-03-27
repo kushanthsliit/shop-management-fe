@@ -72,10 +72,30 @@ export class MainComponent implements OnInit{
   }
 
 
+  tobaccoProfit : any;
+  tobaccoQtyProfit : any;
+  phoneCardsProfit : any;
+  shopProfit : any;
+  totalExpenses : any;
+  totalProfit : any;
   getSummary(){
     this.shopService.getSummaryBetweenDates(this.startDate?.value, this.endDate?.value).subscribe( data => {
       this.summaryData = data.data;
-      console.log(this.summaryData)
+      this.tobaccoProfit = this.summaryData.sumOfTobaccoSold - this.summaryData.sumOfTobaccoPurchased;
+      this.tobaccoQtyProfit = this.summaryData.sumOfTobaccoSoldQty - this.summaryData.sumOfTobaccoPurchasedQty;
+      this.phoneCardsProfit = this.summaryData.sumOfPhoneCardsSold - this.summaryData.sumOfPhoneCardsPurchased;
+      this.shopProfit = this.summaryData.sumOfShopSales - this.summaryData.sumOfShop;
+      this.totalExpenses = this.summaryData.sumOfWages + this.summaryData.sumOfExpenses;
+      this.totalProfit = this.tobaccoProfit + this.phoneCardsProfit + this.shopProfit + this.summaryData.sumOfCommision - this.totalExpenses;
+    });
+
+    this.getReCordsByDateRange();
+  }
+
+  getReCordsByDateRange(){
+    this.shopService.getRecordsByDateRange(this.startDate?.value, this.endDate?.value).subscribe( data => {
+      this.allRecords = data;
+      console.log('date range :',this.allRecords)
     });
   }
 
