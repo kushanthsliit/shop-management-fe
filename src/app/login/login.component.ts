@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ShopService } from '../service/shop.service';
+import { SharedService } from '../service/shared.service';
 
 @Component({
   selector: 'app-login',
@@ -8,16 +11,28 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router){}
+  loginForm: FormGroup;
+  constructor(private router: Router,
+              private shopService : ShopService,
+              private fb: FormBuilder,
+              public dataService: SharedService,){
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
 
   ngOnInit(): void {
     
   }
 
   login(){
-    this.router.navigate(['/main']).then(r => {
-      // this.isLoggedIn = true;
-    });
+    if(this.loginForm.controls['username'].value == 'user' && this.loginForm.controls['password'].value == 'password'){
+      this.router.navigate(['/main']).then(r => {
+        this.dataService.isLoggedIn = true;
+        console.log('isLoggedIn login page : ',this.dataService.isLoggedIn)
+      });
+    }
   }
 
 }

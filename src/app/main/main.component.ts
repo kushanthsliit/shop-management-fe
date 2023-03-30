@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShopService } from '../service/shop.service';
+import { SharedService } from '../service/shared.service';
+import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';;
 
@@ -14,7 +16,10 @@ export class MainComponent implements OnInit{
   recordForm: FormGroup;
   summaryData : any;
 
-  constructor(private shopService : ShopService, private fb: FormBuilder){
+  constructor(private shopService : ShopService,
+              private fb: FormBuilder, 
+              private dataService : SharedService,
+              private router : Router){
     this.recordForm = this.fb.group({
       date: ['', Validators.required],
       oysterSold: ['', Validators.required],
@@ -33,11 +38,17 @@ export class MainComponent implements OnInit{
       startDate: [],
       endDate: []
     });
+
+    if(this.dataService.isLoggedIn == true){
+      router.canceledNavigationResolution = 'computed';
+    }
+
   }
 
   ngOnInit(): void {
     this.getAllRecords()
     console.log('summary data : ', this.summaryData == undefined? null : this.summaryData)
+    console.log('isLogged in in main component : ', this.dataService.isLoggedIn)
   }
 
   getAllRecords(){
@@ -78,17 +89,9 @@ export class MainComponent implements OnInit{
         });
         Swal.fire('Removed!', 'Record removed successfully.', 'success');
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire('Cancelled', 'Record still in our database', 'error');
+        // Swal.fire('Cancelled', 'Record still in our database', 'error');
       }
     });
-
-    // if(confirm("Are you sure to delete "+ record.date + " record ?")) {
-    //   this.shopService.deleteRecord(record.id).subscribe( data => {
-    //     if(data.status == 200){
-    //       this.getAllRecords();
-    //     }
-    //   });
-    // }
   }
 
 
@@ -126,7 +129,19 @@ export class MainComponent implements OnInit{
 
   resetForm(){
     this.recordForm.reset();
+    this.summaryData = null;
+    this.getSummary();
+    this.clearProfitTable();
     this.getAllRecords();
+  }
+
+  clearProfitTable(){
+      this.tobaccoProfit = null;
+      this.tobaccoQtyProfit = null;
+      this.phoneCardsProfit = null;
+      this.shopProfit = null;
+      this.totalExpenses = null;
+      this.totalProfit = null;
   }
 
   get date() {
