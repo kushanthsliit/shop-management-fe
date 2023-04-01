@@ -14,7 +14,13 @@ h5
 }
 
 .table-wrap {
-    height: 250px;
-    overflow-y: auto;
-  }
+    height: 400px;
+    /* overflow-y: scroll;
+    overflow-x: scroll; */
+    overflow: auto;
+}
+
+.table-wrap::-webkit-scrollbar {
+    display: none;
+}
 

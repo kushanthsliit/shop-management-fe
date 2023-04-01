@@ -15,7 +15,7 @@ export class MainComponent implements OnInit{
   allRecords : any;
   recordForm: FormGroup;
   summaryData : any;
-
+  formShopSales : number = 0;
   constructor(private shopService : ShopService,
               private fb: FormBuilder, 
               private dataService : SharedService,
@@ -27,7 +27,7 @@ export class MainComponent implements OnInit{
       tobaccoSoldQuantity: ['', Validators.required],
       phoneCardsSold: ['', Validators.required],
       total: ['', Validators.required],
-      shopSales: ['', Validators.required],
+      shopSales: [''],
       shop: ['', Validators.required],
       phoneCardsPurchased: ['', Validators.required],
       tobaccoPurchased: ['', Validators.required],
@@ -46,9 +46,14 @@ export class MainComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.getAllRecords()
-    console.log('summary data : ', this.summaryData == undefined? null : this.summaryData)
-    console.log('isLogged in in main component : ', this.dataService.isLoggedIn)
+    // this.recordForm.get('shopSales')?.disable(); 
+    if(sessionStorage.getItem('isLoggedIn') == 'false'){
+      console.log('isLoggedIn : ',sessionStorage.getItem('isLoggedIn'));
+      this.router.navigate(['/login']);
+    }
+    else {
+      this.getAllRecords()
+    }
   }
 
   getAllRecords(){
@@ -58,12 +63,15 @@ export class MainComponent implements OnInit{
   }
 
   onSubmit(){
-    console.log(this.recordForm.value);
+    // console.log(this.recordForm.value);
+    this.formShopSales = this.total?.value - this.oysterSold?.value - this.tobaccoSold?.value - this.phoneCardsSold?.value;
+    this.shopSales?.setValue(this.formShopSales);
     this.shopService.addRecord(this.recordForm.value).subscribe(data =>{
       if(data.data != null){
         this.getAllRecords();
         this.recordForm.reset();
         Swal.fire('Data Added Successfully Date of ',data.data.date, 'success');
+        // console.log(this.recordForm.value)
       }
       else{
         Swal.fire('Already a Record Found The same Date ',this.recordForm.controls['date'].value, 'error');

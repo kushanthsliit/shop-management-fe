@@ -8,12 +8,16 @@ import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { ShopService } from './service/shop.service';
 import { LoginComponent } from './login/login.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { ChartComponent } from './chart/chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
-    LoginComponent
+    LoginComponent,
+    NotFoundComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
