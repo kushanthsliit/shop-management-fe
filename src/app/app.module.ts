@@ -9,7 +9,8 @@ import { MainComponent } from './main/main.component';
 import { ShopService } from './service/shop.service';
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { ChartComponent } from './chart/chart.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -17,14 +18,15 @@ import { ChartComponent } from './chart/chart.component';
     MainComponent,
     LoginComponent,
     NotFoundComponent,
-    ChartComponent
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgChartsModule
   ],
   providers: [ShopService],
   bootstrap: [AppComponent]

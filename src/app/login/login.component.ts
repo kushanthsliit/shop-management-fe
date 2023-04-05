@@ -27,13 +27,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if(sessionStorage.getItem('isLoggedIn') == 'true'){
-      this.router.navigate(['/main']);
+      this.router.navigate(['/dashboard']);
     }
   }
 
   login(){
     if(this.loginForm.controls['username'].value == 'user' && this.loginForm.controls['password'].value == 'password'){
-      this.router.navigate(['/main']).then(r => {
+      this.router.navigate(['/dashboard']).then(r => {
         this.dataService.isLoggedIn = true;
         // this.loggedIn.emit();
         sessionStorage.setItem('isLoggedIn', 'true');

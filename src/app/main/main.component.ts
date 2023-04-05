@@ -103,29 +103,22 @@ export class MainComponent implements OnInit{
   }
 
 
-  tobaccoProfit : any;
-  tobaccoQtyProfit : any;
-  phoneCardsProfit : any;
-  shopProfit : any;
-  totalExpenses : any;
-  totalProfit : any;
   getSummary(){
 
     if(this.startDate?.value > this.endDate?.value){
       Swal.fire('Cancelled', 'Start Date Should Be Less Than End Date', 'error');
     }
 
-    this.shopService.getSummaryBetweenDates(this.startDate?.value, this.endDate?.value).subscribe( data => {
-      this.summaryData = data.data;
-      this.tobaccoProfit = this.summaryData.sumOfTobaccoSold - this.summaryData.sumOfTobaccoPurchased;
-      this.tobaccoQtyProfit = this.summaryData.sumOfTobaccoSoldQty - this.summaryData.sumOfTobaccoPurchasedQty;
-      this.phoneCardsProfit = this.summaryData.sumOfPhoneCardsSold - this.summaryData.sumOfPhoneCardsPurchased;
-      this.shopProfit = this.summaryData.sumOfShopSales - this.summaryData.sumOfShop;
-      this.totalExpenses = this.summaryData.sumOfWages + this.summaryData.sumOfExpenses;
-      this.totalProfit = this.tobaccoProfit + this.phoneCardsProfit + this.shopProfit + this.summaryData.sumOfCommision - this.totalExpenses;
-    });
-
-    this.getReCordsByDateRange();
+    if((this.startDate != null || this.startDate != undefined) && (this.endDate != null || this.endDate != undefined)){
+      this.shopService.getSummaryBetweenDates(this.startDate?.value, this.endDate?.value).subscribe( data => {
+        this.summaryData = data.data;
+      });
+      this.getReCordsByDateRange();
+    }
+    else{
+      this.summaryData = null;
+    }
+   
   }
 
   getReCordsByDateRange(){
@@ -139,17 +132,7 @@ export class MainComponent implements OnInit{
     this.recordForm.reset();
     this.summaryData = null;
     this.getSummary();
-    this.clearProfitTable();
     this.getAllRecords();
-  }
-
-  clearProfitTable(){
-      this.tobaccoProfit = null;
-      this.tobaccoQtyProfit = null;
-      this.phoneCardsProfit = null;
-      this.shopProfit = null;
-      this.totalExpenses = null;
-      this.totalProfit = null;
   }
 
   get date() {

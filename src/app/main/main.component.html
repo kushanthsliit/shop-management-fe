@@ -130,43 +130,43 @@
             <tbody>
               <tr>
                 <td><small>Oyster Sold : </small>
-                <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfOysterSold}}</small></td>
+                <small>{{this.summaryData == undefined ? null : this.summaryData.getAllSums.sumOfOysterSold}}</small></td>
                 <td><small>Shop : </small>
-                  <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfShop}}</small></td>
+                  <small>{{this.summaryData == undefined ? null : this.summaryData.getAllSums.sumOfShop}}</small></td>
               </tr>
               <tr>
                 <td><small>Tobacco Sold : </small>
-                  <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfTobaccoSold}}</small></td>
+                  <small>{{this.summaryData == undefined ? null : this.summaryData.getAllSums.sumOfTobaccoSold}}</small></td>
                 <td><small>Tobacco Purchased : </small>
-                  <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfTobaccoPurchased}}</small></td>
+                  <small>{{this.summaryData == undefined ? null : this.summaryData.getAllSums.sumOfTobaccoPurchased}}</small></td>
               </tr>
               <tr>
                 <td><small>Tobacco Sold Qty : </small>
-                  <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfTobaccoSoldQty}}</small></td>
+                  <small>{{this.summaryData == undefined ? null : this.summaryData.getAllSums.sumOfTobaccoSoldQty}}</small></td>
                   <td><small>Tobacco Purchased Qty : </small>
-                    <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfTobaccoPurchasedQty}}</small></td>
+                    <small>{{this.summaryData == undefined ? null : this.summaryData.getAllSums.sumOfTobaccoPurchasedQty}}</small></td>
               </tr>
               <tr>
                 <td><small>Phone Card Sold : </small>
-                  <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfPhoneCardsSold}}</small></td>
+                  <small>{{this.summaryData == undefined ? null : this.summaryData.getAllSums.sumOfPhoneCardsSold}}</small></td>
                   <td><small>Phone Card Purchased : </small>
-                    <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfPhoneCardsPurchased}}</small></td>
+                    <small>{{this.summaryData == undefined ? null : this.summaryData.getAllSums.sumOfPhoneCardsPurchased}}</small></td>
               </tr>
               <tr>
                 <td><small>Z Total : </small>
-                  <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfZtotal}}</small></td>
+                  <small>{{this.summaryData == undefined ? null : this.summaryData.getAllSums.sumOfZtotal}}</small></td>
                 <td><small>Wages : </small>
-                  <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfWages}}</small></td>
+                  <small>{{this.summaryData == undefined ? null : this.summaryData.getAllSums.sumOfWages}}</small></td>
               </tr>
               <tr>
-                <td><h6>Shop Sales : </h6>{{this.summaryData == undefined ? null : this.summaryData.sumOfShopSales}}</td>
+                <td><h6>Shop Sales : </h6>{{this.summaryData == undefined ? null : this.summaryData.getAllSums.sumOfShopSales}}</td>
                 <td><small>Expenses : </small>
-                <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfExpenses}}</small></td>
+                <small>{{this.summaryData == undefined ? null : this.summaryData.getAllSums.sumOfExpenses}}</small></td>
               </tr>
               <tr>
                 <td></td>
                 <td><small>Commision : </small>
-                  <small>{{this.summaryData == undefined ? null : this.summaryData.sumOfCommision}}</small></td>
+                  <small>{{this.summaryData == undefined ? null : this.summaryData.getAllSums.sumOfCommision}}</small></td>
               </tr>
             </tbody>
           </table>
@@ -198,18 +198,18 @@
             </tr>
             <tr>
               <td>PROFIT</td>
-              <td>{{this.tobaccoProfit}}</td>
-              <td>{{this.tobaccoQtyProfit}}</td>
-              <td>{{this.phoneCardsProfit}}</td>
-              <td>{{this.shopProfit}}</td>
+              <td>{{this.summaryData == undefined ? null : this.summaryData.profits.tobaccoProfit}}</td>
+              <td>{{this.summaryData == undefined ? null : this.summaryData.profits.tobaccoQtyProfit}}</td>
+              <td>{{this.summaryData == undefined ? null : this.summaryData.profits.phoneCardsProfit}}</td>
+              <td>{{this.summaryData == undefined ? null : this.summaryData.profits.shopProfit}}</td>
             </tr>
             <tr>
               <td>TOTAL EXPENSES</td>
-              <td><h6>{{this.totalExpenses}}</h6></td>
+              <td><h6>{{this.summaryData == undefined ? null : this.summaryData.profits.totalExpenses}}</h6></td>
             </tr>
             <tr>
               <td>TOTAL PROFIT</td>
-              <td><h6>{{this.totalProfit}}</h6></td>
+              <td><h6>{{this.summaryData == undefined ? null : this.summaryData.profits.totalProfit}}</h6></td>
             </tr>
           </tbody>
         </table>

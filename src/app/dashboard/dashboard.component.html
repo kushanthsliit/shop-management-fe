@@ -1,0 +1,58 @@
+<!-- <button class="button btn-info" (click)="gotoDEPage()">Go to Data Entry Page</button> -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-1" style="background-color: rgb(23, 60, 93);">
+            <div class="row">
+
+            </div>
+        </div>
+        <div class="col-md-11">
+<!-- first row -->
+            <div class="row" style="text-align: center; margin-top: 15px; margin-bottom: 20px;">
+                <div class="col">
+                    <div class="barChartData" style="background-color: aliceblue; padding: 20px;">
+                        <h6 style="color: rgb(42, 42, 239);">Tobacco Profit</h6>
+                        <p>67,548</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="barChartData" style="background-color: antiquewhite; padding: 20px;">
+                        <h6 style="color: rgb(42, 42, 239);">Tobacco Quantity Profit</h6>
+                        <p>67,548</p></div>
+                </div>
+                <div class="col">
+                    <div class="barChartData" style="background-color: blanchedalmond; padding: 20px;">
+                        <h6 style="color: rgb(42, 42, 239);">Phone Cards Profit</h6>
+                        <p>67,548</p></div>
+                </div>
+                <div class="col">
+                    <div class="barChartData" style="background-color: bisque; padding: 20px;">
+                        <h6 style="color: rgb(42, 42, 239);">Total Profit</h6>
+                        <p>67,548</p></div>
+                </div>
+            </div>
+<!-- 2nd row -->
+            <div class="row">
+                <h6></h6>
+                <div class="col" style="height: 275px;">
+                    <canvas baseChart type="line" [data]="lineChartData"></canvas>
+                </div>
+                <div class="col">
+                    <canvas baseChart type="bar" [data]="barChartData"></canvas>
+                </div>
+            </div>
+<!-- Third row -->
+            <div class="row" style="margin-bottom: 20px;">
+                <div class="col" >
+                    <span style="text-align: center;"><h6>Expenses of the Month</h6></span>
+                    <canvas baseChart type="doughnut" [data]="doughnutChartData" [options]="doughnutChartOptions"></canvas>
+                </div>
+                <div class="col">
+                    <span style="text-align: center;"><h6>Purchase Of the Month</h6></span>
+                    <canvas baseChart type="pie" [data]="pieChartData" [options]="pieChartOptions"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
