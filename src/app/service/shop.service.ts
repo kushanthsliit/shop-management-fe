@@ -34,4 +34,8 @@ export class ShopService {
     return this.http.get<any>(this.baseUrl + 'getRecordsByDateRange/startDate/' + startDate + '/endDate/' + endDate);
   }
 
+  getChartData(){
+    return this.http.get<any>(this.baseUrl + 'chartData');
+  }
+
 }

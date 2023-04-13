@@ -11,6 +11,7 @@ export class AppComponent implements OnInit, DoCheck {
 
   title = 'shop_management_fe';
   isLoggedIn : boolean;
+  dashboardlink : string = '';
   constructor(private dataService : SharedService, private router: Router,){
     this.isLoggedIn = dataService.isLoggedIn;
   }
@@ -27,10 +28,11 @@ export class AppComponent implements OnInit, DoCheck {
   }
 
   ngOnInit(): void {
-   console.log('cart page isLoggedIn : ', this.isLoggedIn);
    if(this.isLoggedIn == false){
     this.router.navigate(['']);
    }
+
+   console.log('app component isLoggedIn : ',sessionStorage.getItem('isLoggedIn'))
   }
 
   logout(){

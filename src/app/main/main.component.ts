@@ -47,7 +47,7 @@ export class MainComponent implements OnInit{
 
   ngOnInit(): void {
     // this.recordForm.get('shopSales')?.disable(); 
-    if(sessionStorage.getItem('isLoggedIn') == 'false'){
+    if(sessionStorage.getItem('isLoggedIn') == 'false' || sessionStorage.getItem('isLoggedIn') == null){
       console.log('isLoggedIn : ',sessionStorage.getItem('isLoggedIn'));
       this.router.navigate(['/login']);
     }

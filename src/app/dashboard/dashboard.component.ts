@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ShopService } from '../service/shop.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,28 +9,52 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
+
+  profits : any;
   lineChartData = {
-      labels: ["sun", "mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-      datasets: [
-        {
-          data: [89, 34, 43, 54, 28, 74, 93],
-          label: 'Monthly Profit Of the Year',
-          borderColor: ' rgb(23, 60, 93)',
-          tension : 0.5
-        }
-      ]
+    labels: [],
+    datasets: [
+      {
+        data: [],
+        label: 'Monthly Profit Percentage',
+        borderColor: ' rgb(23, 60, 93)',
+        tension : 0.5
+      }
+    ]
   }
 
   barChartData = {
-    labels: ["sun", "mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    labels: [],
     datasets: [
       {
-        data: [89, 34, 43, 54, 28, 74, 93],
-        label: 'Monthly Sales Of the Year',
+        data: [],
+        label: 'Sales Percentage Of The Month',
         backgroundColor: '#f88406',
       }
     ]
   }
+  
+  constructor(private router : Router, private shopService : ShopService){}
+
+  ngOnInit(): void {
+    if(sessionStorage.getItem('isLoggedIn') == 'false' || sessionStorage.getItem('isLoggedIn') == null){
+      console.log('isLoggedIn : ',sessionStorage.getItem('isLoggedIn'));
+      this.router.navigate(['/login']);
+    }
+    this.getChartData();
+    console.log('line chart values : ',this.barChartData)
+  }
+
+  getChartData(){
+    this.shopService.getChartData().subscribe( data => {
+      this.profits = data.summaryResponse.profits;
+      this.lineChartData.datasets[0].data =  data.lineChartData.chartValues;
+      this.lineChartData.labels = data.lineChartData.chartLabels;
+      this.barChartData.labels = data.barChartData.chartLabels;
+      this.barChartData.datasets[0].data = data.barChartData.chartValues;
+    })
+  }
+
 
   pieChartData = {
     labels: ["sun", "mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
@@ -69,19 +94,6 @@ export class DashboardComponent implements OnInit {
 
   doughnutChartOptions = {
     responsive : false
-  }
-
-  constructor(private router : Router){}
-
-  ngOnInit(): void {
-    if(sessionStorage.getItem('isLoggedIn') == 'false'){
-      console.log('isLoggedIn : ',sessionStorage.getItem('isLoggedIn'));
-      this.router.navigate(['/login']);
-    }
-  }
-
-  gotoDEPage(){
-    this.router.navigate(['/main'])
   }
 
 }

@@ -1,9 +1,9 @@
 <div class="container-fluid">
   <div class="container">
     <form [formGroup]="recordForm" (ngSubmit)="onSubmit()">
-    <div class="row">
-      <div class="col-sm">
-        <h5 class="" style="margin-top: 10px;">Day Business</h5>
+    <div class="row" style="margin: 1%;">
+      <div class="col">
+        <h5 class="">Day Business</h5>
         
             <div class="form-group">
               <label>Date</label>
@@ -47,20 +47,11 @@
               formControlName="shopSales" [class.is-invalid]="shopSales?.invalid && shopSales?.touched" min="0">
               <small [class.d-none]="shopSales?.valid || shopSales?.untouched" class="text-danger">Shop Sales Required..!</small>
             </div>
-
-            <div style="margin-top: 40px;">
-              <button type="submit" class="btn btn-success btn-md" style="margin-right: 5px;"
-              [disabled]="!this.recordForm.valid">Submit</button>
-              <button type="button" class="btn btn-secondary btn-md" style="margin-right: 5px;" 
-              (click)="resetForm()">Reset Form</button>
-            </div>
-
-          <!-- <button type="button" class="btn btn-primary btn-sm" style="margin-right: 5px;">Update</button> -->
       </div>
 
       <!-- {{recordForm.value | json}} -->
-      <div class="col-sm">
-        <h5 class="" style="margin-top: 10px;">Day Purchases</h5>
+      <div class="col">
+        <h5 class="">Day Purchases</h5>
     
             <div class="form-group">
               <label>Shop</label>
@@ -105,14 +96,17 @@
                 <small [class.d-none]="commision?.valid || commision?.untouched" class="text-danger">Commision Required..!</small>
             </div>
           
-            <!-- <button type="submit" class="btn btn-success btn-sm" style="margin-right: 5px;"
-            [disabled]="!this.recordForm.valid">Submit</button>
-            <button type="button" class="btn btn-secondary btn-sm" style="margin-right: 5px;" 
-            (click)="resetForm()">Reset Form</button> -->
+            <div style="margin: 1%;">
+              <button type="submit" class="btn btn-success btn-md" style="margin: 1%;"
+              [disabled]="!this.recordForm.valid">Submit</button>
+              <button type="button" class="btn btn-secondary btn-md" style="margin: 1%;" 
+              (click)="resetForm()">Reset Form</button>
+               <!-- <button type="button" class="btn btn-primary btn-sm" style="margin-right: 5px;">Update</button> -->
+            </div>
       </div>
 
-      <div class="col-sm" >
-        <h5 class="" style="margin-top: 10px;">Summary Report</h5>
+      <div class="col" >
+        <h5 class="">Summary Report</h5>
         <div class="form-group">
           <label>Start Date</label>
           <input type="date" class="form-control form-control-sm" formControlName="startDate">
@@ -173,7 +167,7 @@
         </div>
       </div>
     </div>
-</form>
+  </form>
 </div>
 
 

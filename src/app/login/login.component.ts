@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit {
     if(sessionStorage.getItem('isLoggedIn') == 'true'){
       this.router.navigate(['/dashboard']);
     }
+
+    console.log('login component isLoggedIn : ',sessionStorage.getItem('isLoggedIn'))
   }
 
   login(){
